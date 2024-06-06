@@ -49,6 +49,13 @@ $ npm run deploy --target=esp32/m5stack_cores3
 
 The program will be saved under the `$MODDABLE/build/` directory.
 
+If written correctly, the face of Stack-chan will appear a few seconds after startup.
+The M5Stack buttons will change Stack-chan's behavior as follows:
+
+- **A Button** (in the case of CoreS3, the bottom-left area of the screen) ... Stack-chan will look in a random direction every 5 seconds.
+- **B Button** (in the case of CoreS3, the bottom-center area of the screen) ... Stack-chan will look left, right, down, and up.
+- **C Button** (in the case of CoreS3, the bottom-right area of the screen) ... The color of Stack-chan's face will invert.
+
 ## Debugging
 
 You can debug the program using the following commands:
@@ -73,13 +80,6 @@ _No `sudo` required for the command._
 ```console
 $ npm run mod --target=esp32/m5stack_cores3 [mod manifest file path]
 ```
-
-If written correctly, the face of Stack-chan will appear a few seconds after startup.
-The M5Stack buttons will change Stack-chan's behavior as follows:
-
-- **A Button** (in the case of CoreS3, the bottom-left area of the screen) ... Stack-chan will look in a random direction every 5 seconds.
-- **B Button** (in the case of CoreS3, the bottom-center area of the screen) ... Stack-chan will look left, right, down, and up.
-- **C Button** (in the case of CoreS3, the bottom-right area of the screen) ... The color of Stack-chan's face will invert.
 
 **Example: Installing [`mods/look_around`](../mods/look_around/)**
 
