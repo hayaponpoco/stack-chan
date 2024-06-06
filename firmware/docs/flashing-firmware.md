@@ -56,6 +56,43 @@ The M5Stack buttons will change Stack-chan's behavior as follows:
 - **B Button** (in the case of CoreS3, the bottom-center area of the screen) ... Stack-chan will look left, right, down, and up.
 - **C Button** (in the case of CoreS3, the bottom-right area of the screen) ... The color of Stack-chan's face will invert.
 
+(Postscript by Goto)
+
+If the following message was displayed when you try to write, you have to give a permission.
+
+```
+Serial port /dev/ttyUSB0
+/dev/ttyUSB0 failed to connect: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
+```
+
+1. **Add the user to the dialout group**:
+
+To access the serial port, the user must be added to the dialout group.
+Execute the following command.
+
+```console
+$ sudo usermod -a -G dialout $USER
+```
+
+After executing the command, log out and log in again.
+
+2. **Grant the serial port permission**:
+
+Use the following command to grant the serial port permission.
+The following command is an example when the port is `/dev/ttyUSB0`.
+
+```console
+$ sudo chmod 666 /dev/ttyUSB0
+```
+
+3. **Write to the correct port**:
+
+Use the `-p` option to explicitly specify the port to connect to.
+
+```console
+$ npm run deploy --target=esp32/m5stack_cores3 -p /dev/ttyUSB0
+```
+
 ## Debugging
 
 You can debug the program using the following commands:
