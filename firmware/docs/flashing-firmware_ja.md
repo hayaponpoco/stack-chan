@@ -60,9 +60,48 @@ M5Stack のボタンを押すと次のように変わります。
 - B ボタン（CoreS3 の場合は画面中央下の領域） ... ｽﾀｯｸﾁｬﾝが左、右、下、上を向く
 - C ボタン（CoreS3 の場合は画面右下の領域） ... ｽﾀｯｸﾁｬﾝの顔の色が反転する
 
+（後藤 追記）
+
+書き込もうとした際に
+
+```
+Serial port /dev/ttyUSB0
+/dev/ttyUSB0 failed to connect: [Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0'
+```
+
+のように表示された場合、権限を与えてあげないといけません。
+
+1. **ユーザーを`dialout`グループに追加する**：
+
+シリアルポートにアクセスするには、ユーザーを`dialout`グループに追加する必要があります。
+以下のコマンドを実行してください。
+
+```console
+$ sudo usermod -a -G dialout $USER
+```
+
+実行後、ログアウトして再度ログインしてください。
+
+2. **シリアルポートの権限を確認・変更する**：
+
+次のコマンドを使用して、権限を付与します。
+以下は、ポートが`/dev/ttyUSB0`であるときの例です。
+
+```console
+$ sudo chmod 666 /dev/ttyUSB0
+```
+
+3. **正しいポートを指定して書き込む**：
+
+`-p`オプションを使用して、接続するポートを明示的に指定します。
+
+```console
+$ npm run deploy --target=esp32/m5stack_cores3 -p /dev/ttyUSB0
+```
+
 ## デバッグ
 
-次のコマンドでプログラムのデバッグが可能です
+次のコマンドでプログラムのデバッグが可能です。
 
 ```console
 $ npm run debug --target=esp32/m5stack_cores3
